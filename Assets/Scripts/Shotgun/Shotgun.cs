@@ -4,38 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public enum ShotgunState
-{
-    Empty,
-    Loaded,
-    Reloading
-}
 
-public enum ForearmState
-{
-    Forward,
-    Back
-}
-
-public enum ChamberShellState
-{
-    Empty,
-    Primed,
-    Spent
-}
-
-public enum StrikerStatus
-{
-    Cocked,
-    Uncocked
-}
 
 public class Shotgun : MonoBehaviour
 {
-    [Header("Debug")]
-    public bool startLoaded = true;
-    public bool startShellInChamber = true;
-
     [Header("Ammo")]
     public int maxShells;
 
@@ -58,22 +30,73 @@ public class Shotgun : MonoBehaviour
 
     public UnityEvent e_shoot;
 
+    private Player player;
+
+    public bool IsReloading => shotgunState == ShotgunState.Reloading;
+
+    public static Shotgun Instance;
+
     /// <summary>
     /// Reload when forearm slide is in forward position
     /// Cocking will always be true    /// 
     /// </summary>
     /// 
 
+    private void Awake()
+    {
+        if (!Instance)
+        {
+            Instance = this;
+        }
+
+        if (Instance != this)
+        {
+            Destroy(this);
+        }
+    }
+
     void Start()
     {
-        CheckStartLoaded();
-        CheckStartShellInChamber();
+        player = Player.Instance;
         shotgunAudio = ShotgunSoundManager.Instance;
+        InitShotgun();
+    }
+
+    public void InitShotgun()
+    {
+        shotgunState = ShotgunState.Empty;
+        strikerStatus = StrikerStatus.Uncocked;
+
+        SetMaxShells();
+        SetCurrentShells();
+
+        CheckStartShellInChamber();
+    }
+
+    private void SetCurrentShells()
+    {
+        if (!HasShotgun())
+        {
+            return;
+        }
+
+        CheckStartLoaded();
+    }
+
+    private void SetMaxShells()
+    {
+        if (!HasShotgun())
+        {
+            maxShells = 0;
+            return;
+        }
+
+        maxShells = player.equippedShotgun.maxShells;
     }
 
     private void CheckStartShellInChamber()
     {
-        if (startShellInChamber)
+        if (HasShotgun() && player.equippedShotgun.startShellInChamber)
         {
             chamberShellState = ChamberShellState.Primed;
         }
@@ -81,7 +104,7 @@ public class Shotgun : MonoBehaviour
 
     private void CheckStartLoaded()
     {
-        if (startLoaded)
+        if (HasShotgun() && player.equippedShotgun.startLoaded)
         {
             currentShells = maxShells;
             shotgunState = ShotgunState.Loaded;
@@ -89,27 +112,22 @@ public class Shotgun : MonoBehaviour
         }
     }
 
-
-    // Update is called once per frame
-    void Update()
+    public void FireAction()
     {
-        HandleFireAction();
-        HandleForearmAction();
-        HandleReloadToggle();
-        HandleReloadAction();
-    }
-
-    private void HandleFireAction()
-    {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (!HasShotgun())
         {
-            PullTrigger();
+            return;
         }
+
+        PullTrigger();
     }
 
-    private void HandleForearmAction()
+    public void HandleForearmAction(float scroll)
     {
-        var scroll = Input.mouseScrollDelta.y;
+        if (!HasShotgun())
+        {
+            return;
+        }
 
         if (scroll > 0)
         {
@@ -123,7 +141,7 @@ public class Shotgun : MonoBehaviour
         }
     }
 
-    private void HandleReloadToggle()
+    public void HandleReloadToggle()
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -131,16 +149,23 @@ public class Shotgun : MonoBehaviour
         }
     }
 
-    private void HandleReloadAction()
+    public void HandleReloadAction()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (!HasShotgun())
         {
-            TryReload();
+            return;
         }
+
+        TryReload();
     }
 
-    private void ToggleReloadState()
+    public void ToggleReloadState()
     {
+        if (!HasShotgun())
+        {
+            return;
+        }
+
         if (shotgunState == ShotgunState.Reloading)
         {
             if (currentShells > 0)
@@ -305,5 +330,10 @@ public class Shotgun : MonoBehaviour
         shotgunAudio.Fire();
         //Shoot bullet 
         //Vfx
+    }
+
+    private bool HasShotgun()
+    {
+        return player.equippedShotgun != null;
     }
 }

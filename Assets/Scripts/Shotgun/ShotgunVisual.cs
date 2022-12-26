@@ -40,17 +40,30 @@ public class ShotgunVisual : MonoBehaviour
         forearmTarget = shotgun.forearmState == ForearmState.Forward ? forearmForward.position : forearmBack.position;
         forearm.position = Vector3.MoveTowards(forearm.position, forearmTarget, forearmDelta * Time.deltaTime);
 
-        shotgunRoot.up = shotgun.shotgunState == ShotgunState.Reloading ? Vector3.down : Vector3.up;
+        //shotgunRoot.up = shotgun.shotgunState == ShotgunState.Reloading ? Vector3.down : Vector3.up;
     }
 
     public void Reload()
     {
-        print("hello animate");
         shellAnim.SetTrigger("Reload");
     }
 
     void SpawnVfx()
     {
-        Instantiate(vfx);
+        var fx = Instantiate(vfx);
+        fx.transform.position = vfxRoot.position;
+        fx.transform.forward = vfxRoot.forward;
+
+
+        ParticleSystem ps = fx.GetComponent<ParticleSystem>();
+        var em = ps.emission;
+        em.enabled = true;
+
+        em.rateOverTime = 0;
+
+        em.SetBursts(
+            new ParticleSystem.Burst[]{
+                new ParticleSystem.Burst(0f, 500)
+            });
     }
 }
