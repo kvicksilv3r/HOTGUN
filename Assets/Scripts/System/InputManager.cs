@@ -21,7 +21,6 @@ public class InputManager : MonoBehaviour
         HandleScroll();
         HandleKeyR();
         HandleKeySpace();
-
     }
 
     private void HandleMouseZero()
