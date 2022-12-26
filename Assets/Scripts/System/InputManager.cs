@@ -27,7 +27,12 @@ public class InputManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            shotgun.FireAction();
+            shotgun.FireActionDown();
+        }
+
+        if (Input.GetKeyUp(KeyCode.Mouse0))
+        {
+            shotgun.FireActionUp();
         }
     }
 

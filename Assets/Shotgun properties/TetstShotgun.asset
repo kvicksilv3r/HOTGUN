@@ -20,3 +20,4 @@ MonoBehaviour:
   projectileCount: 10
   startLoaded: 1
   startShellInChamber: 1
+  slamfire: 1

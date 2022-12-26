@@ -21,7 +21,6 @@ public class ShotgunVisual : MonoBehaviour
 
     public Animator shellAnim;
 
-
     public static ShotgunVisual Instance;
 
     private void Awake()
@@ -31,8 +30,14 @@ public class ShotgunVisual : MonoBehaviour
 
     void Start()
     {
+        if (!shotgun)
+        {
+            shotgun = Shotgun.Instance;
+        }
+
         shotgun.e_shoot.AddListener(SpawnVfx);
         forearmTarget = forearmForward.position;
+
     }
 
     void Update()
@@ -63,7 +68,7 @@ public class ShotgunVisual : MonoBehaviour
 
         em.SetBursts(
             new ParticleSystem.Burst[]{
-                new ParticleSystem.Burst(0f, 500)
-            });
+                new ParticleSystem.Burst(0f, Player.Instance.shotgun.projectileCount)
+            }) ;
     }
 }

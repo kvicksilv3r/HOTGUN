@@ -36,6 +36,8 @@ public class Shotgun : MonoBehaviour
 
     public static Shotgun Instance;
 
+    private bool triggerHeld = false;
+
     /// <summary>
     /// Reload when forearm slide is in forward position
     /// Cocking will always be true    /// 
@@ -91,12 +93,12 @@ public class Shotgun : MonoBehaviour
             return;
         }
 
-        maxShells = player.equippedShotgun.maxShells;
+        maxShells = player.shotgun.maxShells;
     }
 
     private void CheckStartShellInChamber()
     {
-        if (HasShotgun() && player.equippedShotgun.startShellInChamber)
+        if (HasShotgun() && player.shotgun.startShellInChamber)
         {
             chamberShellState = ChamberShellState.Primed;
         }
@@ -104,7 +106,7 @@ public class Shotgun : MonoBehaviour
 
     private void CheckStartLoaded()
     {
-        if (HasShotgun() && player.equippedShotgun.startLoaded)
+        if (HasShotgun() && player.shotgun.startLoaded)
         {
             currentShells = maxShells;
             shotgunState = ShotgunState.Loaded;
@@ -112,7 +114,7 @@ public class Shotgun : MonoBehaviour
         }
     }
 
-    public void FireAction()
+    public void FireActionDown()
     {
         if (!HasShotgun())
         {
@@ -120,6 +122,11 @@ public class Shotgun : MonoBehaviour
         }
 
         PullTrigger();
+    }
+
+    internal void FireActionUp()
+    {
+        triggerHeld = false;
     }
 
     public void HandleForearmAction(float scroll)
@@ -181,6 +188,7 @@ public class Shotgun : MonoBehaviour
         else
         {
             shotgunState = ShotgunState.Reloading;
+            triggerHeld = false;
         }
     }
 
@@ -224,6 +232,8 @@ public class Shotgun : MonoBehaviour
             return;
         }
 
+        triggerHeld = true;
+
         strikerStatus = StrikerStatus.Uncocked;
 
         if (chamberShellState == ChamberShellState.Primed)
@@ -245,8 +255,6 @@ public class Shotgun : MonoBehaviour
             return;
         }
 
-        print("Forearm FORWARD");
-
         if (lastForearmState == ForearmState.Back)
         {
             strikerStatus = StrikerStatus.Cocked;
@@ -265,6 +273,11 @@ public class Shotgun : MonoBehaviour
             currentShells--;
             chamberShellState = ChamberShellState.Primed;
             shotgunAudio.ArmForwardWithShell();
+
+            if (player.shotgun.slamfire && triggerHeld)
+            {
+                FireGun();
+            }
         }
 
         else
@@ -334,6 +347,6 @@ public class Shotgun : MonoBehaviour
 
     private bool HasShotgun()
     {
-        return player.equippedShotgun != null;
+        return player.shotgun != null;
     }
 }

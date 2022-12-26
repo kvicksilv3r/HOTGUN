@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
     public int maxHealth = 10;
     public int currentHealth = 10;
 
-    public ShotgunProperties equippedShotgun;
+    public ShotgunProperties shotgun;
 
     public static Player Instance;
 
@@ -36,12 +36,12 @@ public class Player : MonoBehaviour
 
     public void EquipNewShotgun(ShotgunProperties properties)
     {
-        equippedShotgun = properties;
+        shotgun = properties;
 
         //Shotgun manager.reset or initialize
     }
 
 
-    public ShotgunProperties GetShotgun() => equippedShotgun;
+    public ShotgunProperties GetShotgun() => shotgun;
 
 }

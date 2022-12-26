@@ -1686,7 +1686,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   currentHealth: 10
-  equippedShotgun: {fileID: 11400000, guid: aaaeef96d235dae40bbc9e65364fe897, type: 2}
+  shotgun: {fileID: 11400000, guid: aaaeef96d235dae40bbc9e65364fe897, type: 2}
 --- !u!1 &749644173
 GameObject:
   m_ObjectHideFlags: 0
