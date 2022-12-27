@@ -49,6 +49,5 @@ public class HackyArmIK : MonoBehaviour
     private bool ShellAnimPlaying()
     {
         return (shellAnimator.GetCurrentAnimatorStateInfo(0).IsName("ShellAnim") && shellAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
-        //return shellAnimator.GetCurrentAnimatorStateInfo(0).IsName("ShellAnim"); //&& shellAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
     }
 }

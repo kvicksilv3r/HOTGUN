@@ -37,7 +37,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleGravity()
     {
-        //if (!_characterController.isGrounded)
         _verticalVelocity -= Time.deltaTime * _gravitationalStength;
     }
 
@@ -53,7 +52,6 @@ public class PlayerMovement : MonoBehaviour
     {
         _movement = _input + Vector3.up * _verticalVelocity;
         _characterController.Move(_movement * Time.deltaTime);
-        //_characterController.SimpleMove(_input * _movementSpeed * Time.deltaTime);
     }
 
     private void FetchInput()
