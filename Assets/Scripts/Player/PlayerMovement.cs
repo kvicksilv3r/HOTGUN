@@ -34,7 +34,11 @@ public class PlayerMovement : MonoBehaviour
     public float airMultiplier = 0.25f;
     private float currentAirMultiplier = 1;
 
-    // Update is called once per frame
+    private void Start()
+    {
+        Shotgun.Instance.e_shoot.AddListener(AddKnockback);
+    }
+
     void Update()
     {
         FetchInput();
@@ -77,5 +81,15 @@ public class PlayerMovement : MonoBehaviour
         _input.z = Input.GetAxisRaw("Vertical");
 
         _input = transform.TransformVector(_input) * _movementSpeed;
+    }
+
+    private void AddKnockback()
+    {
+        var camBack = _camera.forward * -1;
+        var knockback = camBack * Player.Instance.shotgun.knockbackPower;
+
+        _verticalVelocity += knockback.y;
+
+        horizontalVelocity += new Vector3(knockback.x, 0, knockback.z);
     }
 }

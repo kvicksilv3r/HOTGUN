@@ -181,6 +181,11 @@ public class Shotgun : MonoBehaviour
             return;
         }
 
+        if (forearmState == ForearmState.Back)
+        {
+            return;
+        }
+
         if (shotgunState == ShotgunState.Reloading)
         {
             if (currentShells > 0)
@@ -298,10 +303,15 @@ public class Shotgun : MonoBehaviour
     {
         if (shotgunState == ShotgunState.Reloading)
         {
-            return;
+            if (currentShells > 0)
+            {
+                shotgunState = ShotgunState.Loaded;
+            }
+            else
+            {
+                shotgunState = ShotgunState.Empty;
+            }
         }
-
-        print("Forearm BACK");
 
         if (forearmState == ForearmState.Back)
         {
