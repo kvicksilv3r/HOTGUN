@@ -88,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
         var camBack = _camera.forward * -1;
         var knockback = camBack * Player.Instance.shotgun.knockbackPower;
 
-        _verticalVelocity += knockback.y;
+        _verticalVelocity += knockback.y * 0.75f;
 
         horizontalVelocity += new Vector3(knockback.x, 0, knockback.z);
     }
