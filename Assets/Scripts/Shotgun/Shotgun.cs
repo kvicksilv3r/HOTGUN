@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-
-
 public class Shotgun : MonoBehaviour
 {
     [Header("Ammo")]
@@ -30,6 +28,8 @@ public class Shotgun : MonoBehaviour
 
     public UnityEvent e_shoot;
 
+    public Transform shotgunVisualHolster;
+
     private Player player;
 
     public bool IsReloading => shotgunState == ShotgunState.Reloading;
@@ -37,12 +37,6 @@ public class Shotgun : MonoBehaviour
     public static Shotgun Instance;
 
     private bool triggerHeld = false;
-
-    /// <summary>
-    /// Reload when forearm slide is in forward position
-    /// Cocking will always be true    /// 
-    /// </summary>
-    /// 
 
     private void Awake()
     {
@@ -69,10 +63,22 @@ public class Shotgun : MonoBehaviour
         shotgunState = ShotgunState.Empty;
         strikerStatus = StrikerStatus.Uncocked;
 
+        SetupVisuals();
+
         SetMaxShells();
         SetCurrentShells();
 
         CheckStartShellInChamber();
+    }
+
+    private void SetupVisuals()
+    {
+        if (shotgunVisualHolster.childCount > 0)
+        {
+            DestroyImmediate(shotgunVisualHolster.GetChild(0).gameObject);
+        }
+
+        Instantiate(player.shotgun.shotgunVisual, shotgunVisualHolster);
     }
 
     private void SetCurrentShells()
@@ -81,6 +87,8 @@ public class Shotgun : MonoBehaviour
         {
             return;
         }
+
+        currentShells = 0;
 
         CheckStartLoaded();
     }
@@ -341,8 +349,6 @@ public class Shotgun : MonoBehaviour
     {
         print("BANG");
         shotgunAudio.Fire();
-        //Shoot bullet 
-        //Vfx
     }
 
     private bool HasShotgun()

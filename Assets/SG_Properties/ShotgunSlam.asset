@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b057956ed3ac8b48bc11bb628e37347, type: 3}
-  m_Name: TetstShotgun
+  m_Name: ShotgunSlam
   m_EditorClassIdentifier: 
-  gunName: Basic ass shotgun
-  rarity: 0
-  maxShells: 4
-  damage: 10
+  gunName: Slamma Jamma
+  rarity: 2
+  maxShells: 3
+  damage: 15
   spread: 1
-  projectileCount: 10
+  projectileCount: 15
   startLoaded: 1
   startShellInChamber: 1
   slamfire: 1
+  shotgunVisual: {fileID: 3529990988502463549, guid: ad60257afecfe244c9d0b6cdcf617fa6, type: 3}

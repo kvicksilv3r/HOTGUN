@@ -21,6 +21,7 @@ public class InputManager : MonoBehaviour
         HandleScroll();
         HandleKeyR();
         HandleKeySpace();
+        HandleE();
     }
 
     private void HandleMouseZero()
@@ -56,6 +57,14 @@ public class InputManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             shotgun.ToggleReloadState();
+        }
+    }
+
+    public void HandleE()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            PlayerInteract.Instance.TryInteract();
         }
     }
 }

@@ -38,6 +38,8 @@ public class Player : MonoBehaviour
     {
         shotgun = properties;
 
+        Shotgun.Instance.InitShotgun();
+
         //Shotgun manager.reset or initialize
     }
 

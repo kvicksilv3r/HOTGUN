@@ -12,4 +12,5 @@ public class ShotgunProperties : ScriptableObject
     public bool startLoaded;
     public bool startShellInChamber;
     public bool slamfire;
+    public GameObject shotgunVisual;
 }

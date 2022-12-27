@@ -19,17 +19,14 @@ public class ShotgunVisual : MonoBehaviour
 
     public Shotgun shotgun;
 
-    public Animator shellAnim;
+    public Animator shellAnimator;
 
     public static ShotgunVisual Instance;
 
-    private void Awake()
-    {
-        Instance = this;
-    }
-
     void Start()
     {
+        Instance = this;
+
         if (!shotgun)
         {
             shotgun = Shotgun.Instance;
@@ -37,6 +34,11 @@ public class ShotgunVisual : MonoBehaviour
 
         shotgun.e_shoot.AddListener(SpawnVfx);
         forearmTarget = forearmForward.position;
+
+        if (!shellAnimator)
+        {
+            shellAnimator = ShellFinder.Instance.animator;
+        }
 
     }
 
@@ -50,7 +52,7 @@ public class ShotgunVisual : MonoBehaviour
 
     public void Reload()
     {
-        shellAnim.SetTrigger("Reload");
+        shellAnimator.SetTrigger("Reload");
     }
 
     void SpawnVfx()
@@ -58,7 +60,6 @@ public class ShotgunVisual : MonoBehaviour
         var fx = Instantiate(vfx);
         fx.transform.position = vfxRoot.position;
         fx.transform.forward = vfxRoot.forward;
-
 
         ParticleSystem ps = fx.GetComponent<ParticleSystem>();
         var em = ps.emission;
@@ -69,6 +70,6 @@ public class ShotgunVisual : MonoBehaviour
         em.SetBursts(
             new ParticleSystem.Burst[]{
                 new ParticleSystem.Burst(0f, Player.Instance.shotgun.projectileCount)
-            }) ;
+            });
     }
 }

@@ -8,6 +8,7 @@ public class HackyArmIK : MonoBehaviour
     public Transform slidy;
     public Transform elbow;
     // Start is called before the first frame update
+
     void Start()
     {
 
@@ -16,6 +17,19 @@ public class HackyArmIK : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
+        if (!slidy)
+        {
+            if (ShotgunVisual.Instance)
+            {
+                slidy = ShotgunVisual.Instance.forearm;
+            }
+
+            if (!slidy)
+            {
+                return;
+            }
+        }
+
         lr.SetPosition(0, elbow.position);
         lr.SetPosition(1, slidy.position);
     }
