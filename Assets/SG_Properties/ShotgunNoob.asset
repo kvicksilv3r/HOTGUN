@@ -18,7 +18,7 @@ MonoBehaviour:
   damage: 10
   spread: 1
   projectileCount: 10
-  startLoaded: 0
-  startShellInChamber: 0
+  startLoaded: 1
+  startShellInChamber: 1
   slamfire: 0
   shotgunVisual: {fileID: 3529990988502463549, guid: c86a00bf298ba5b4d8baa64009568b93, type: 3}
