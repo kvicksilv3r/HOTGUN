@@ -26,11 +26,20 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 _movement;
 
+    private Vector3 horizontalVelocity;
+
+    public float movementDampening = 1;
+    public float maxMovementSpeed = 5;
+
+    public float airMultiplier = 0.25f;
+    private float currentAirMultiplier = 1;
+
     // Update is called once per frame
     void Update()
     {
         FetchInput();
         CheckJump();
+        HandleVelocity();
         HandleGravity();
         TranslatePlayer();
     }
@@ -50,8 +59,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void TranslatePlayer()
     {
-        _movement = _input + Vector3.up * _verticalVelocity;
+        _movement = horizontalVelocity + Vector3.up * _verticalVelocity;
         _characterController.Move(_movement * Time.deltaTime);
+    }
+
+    private void HandleVelocity()
+    {
+        currentAirMultiplier = _characterController.isGrounded ? 1 : airMultiplier;
+        horizontalVelocity += _input * Time.deltaTime * _movementSpeed * currentAirMultiplier;
+        horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, maxMovementSpeed);
+        horizontalVelocity = Vector3.MoveTowards(horizontalVelocity, Vector3.zero, movementDampening * Time.deltaTime * currentAirMultiplier);
     }
 
     private void FetchInput()
