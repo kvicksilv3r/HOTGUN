@@ -7,11 +7,14 @@ public class HackyArmIK : MonoBehaviour
     public LineRenderer lr;
     public Transform slidy;
     public Transform elbow;
+    public Transform shell;
     // Start is called before the first frame update
+    private Animator shellAnimator;
 
-    void Start()
+    private void Start()
     {
-
+        shellAnimator = ShellFinder.Instance.animator;
+        shell = ShellFinder.Instance.transform;
     }
 
     // Update is called once per frame
@@ -31,6 +34,21 @@ public class HackyArmIK : MonoBehaviour
         }
 
         lr.SetPosition(0, elbow.position);
-        lr.SetPosition(1, slidy.position);
+
+        if (ShellAnimPlaying())
+        {
+            lr.SetPosition(1, shell.position);
+        }
+
+        else
+        {
+            lr.SetPosition(1, slidy.position);
+        }
+    }
+
+    private bool ShellAnimPlaying()
+    {
+        return (shellAnimator.GetCurrentAnimatorStateInfo(0).IsName("ShellAnim") && shellAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
+        //return shellAnimator.GetCurrentAnimatorStateInfo(0).IsName("ShellAnim"); //&& shellAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
     }
 }
