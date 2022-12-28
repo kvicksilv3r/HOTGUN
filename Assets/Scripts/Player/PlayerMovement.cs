@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -34,9 +35,17 @@ public class PlayerMovement : MonoBehaviour
     public float airMultiplier = 0.25f;
     private float currentAirMultiplier = 1;
 
+    public UnityEvent e_Jump;
+    public static PlayerMovement Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     private void Start()
     {
-        Shotgun.Instance.e_shoot.AddListener(AddKnockback);
+        Shotgun.Instance.e_Shoot.AddListener(AddKnockback);
     }
 
     void Update()
@@ -50,7 +59,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleGravity()
     {
-        _verticalVelocity -= Time.deltaTime * _gravitationalStength;
+        if (!_characterController.isGrounded)
+        {
+            _verticalVelocity -= Time.deltaTime * _gravitationalStength;
+        }
     }
 
     private void CheckJump()
@@ -58,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && _characterController.isGrounded && !Shotgun.Instance.IsReloading)
         {
             _verticalVelocity = _jumpForce;
+            e_Jump.Invoke();
         }
     }
 

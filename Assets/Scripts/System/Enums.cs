@@ -32,3 +32,14 @@ public enum Rarity
     Epic,
     Legendary
 }
+
+public enum StateBasedAction
+{
+    EnterReloadState,
+    PutShellInGun,
+    FireGun,
+    GunFull,
+    ChamberShell,
+    PlayerJump,
+    ExitReloadState
+}

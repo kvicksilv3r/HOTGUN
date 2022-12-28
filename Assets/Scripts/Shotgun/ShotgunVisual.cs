@@ -32,7 +32,7 @@ public class ShotgunVisual : MonoBehaviour
             shotgun = Shotgun.Instance;
         }
 
-        shotgun.e_shoot.AddListener(SpawnVfx);
+        shotgun.e_Shoot.AddListener(SpawnVfx);
         forearmTarget = forearmForward.position;
 
         if (!shellAnimator)
@@ -60,6 +60,7 @@ public class ShotgunVisual : MonoBehaviour
         var fx = Instantiate(vfx);
         fx.transform.position = vfxRoot.position;
         fx.transform.forward = vfxRoot.forward;
+        fx.GetComponent<ShotgunPellet>().SetDamage(Player.Instance.shotgun.damage);
 
         ParticleSystem ps = fx.GetComponent<ParticleSystem>();
         var em = ps.emission;

@@ -26,9 +26,15 @@ public class Shotgun : MonoBehaviour
 
     private ShotgunSoundManager shotgunAudio;
 
-    public UnityEvent e_shoot;
+    public UnityEvent e_Shoot;
+    public UnityEvent e_EnterReloadState;
+    public UnityEvent e_PutShellInGun;
+    public UnityEvent e_ChamberShell;
+    public UnityEvent e_ShotgunAmmoFull;
+    public UnityEvent e_ExitReloadState;
 
     public Transform shotgunVisualHolster;
+    public float shotgunReloadRotation = 50f;
 
     private Player player;
 
@@ -76,6 +82,11 @@ public class Shotgun : MonoBehaviour
         if (shotgunVisualHolster.childCount > 0)
         {
             DestroyImmediate(shotgunVisualHolster.GetChild(0).gameObject);
+        }
+
+        if (!HasShotgun())
+        {
+            return;
         }
 
         Instantiate(player.shotgun.shotgunVisual, shotgunVisualHolster);
@@ -132,9 +143,16 @@ public class Shotgun : MonoBehaviour
         PullTrigger();
     }
 
-    internal void FireActionUp()
+    public void FireActionUp()
     {
         triggerHeld = false;
+    }
+
+    private void SetHolsterRotation()
+    {
+        var rot = shotgunVisualHolster.rotation.eulerAngles;
+        rot.x = shotgunState == ShotgunState.Reloading ? shotgunReloadRotation : 0;
+        shotgunVisualHolster.rotation = Quaternion.Euler(rot);
     }
 
     public void HandleForearmAction(float scroll)
@@ -153,14 +171,6 @@ public class Shotgun : MonoBehaviour
         if (scroll < 0)
         {
             PullForearmBack();
-        }
-    }
-
-    public void HandleReloadToggle()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            ToggleReloadState();
         }
     }
 
@@ -196,11 +206,17 @@ public class Shotgun : MonoBehaviour
             {
                 shotgunState = ShotgunState.Empty;
             }
+
+            SetHolsterRotation();
+
+            e_ExitReloadState.Invoke();
         }
 
         else
         {
+            e_EnterReloadState.Invoke();
             shotgunState = ShotgunState.Reloading;
+            SetHolsterRotation();
             triggerHeld = false;
         }
     }
@@ -214,7 +230,6 @@ public class Shotgun : MonoBehaviour
 
         if (currentShells >= maxShells)
         {
-            print("Shotgun full");
             return;
         }
 
@@ -226,6 +241,13 @@ public class Shotgun : MonoBehaviour
         ShotgunVisual.Instance.Reload();
         shotgunAudio.InsertShell();
         currentShells++;
+        e_PutShellInGun.Invoke();
+
+        if (currentShells >= maxShells)
+        {
+            e_ShotgunAmmoFull.Invoke();
+            return;
+        }
     }
 
     private void PullTrigger()
@@ -286,6 +308,7 @@ public class Shotgun : MonoBehaviour
             currentShells--;
             chamberShellState = ChamberShellState.Primed;
             shotgunAudio.ArmForwardWithShell();
+            e_ChamberShell.Invoke();
 
             if (player.shotgun.slamfire && triggerHeld)
             {
@@ -311,6 +334,8 @@ public class Shotgun : MonoBehaviour
             {
                 shotgunState = ShotgunState.Empty;
             }
+
+            SetHolsterRotation();
         }
 
         if (forearmState == ForearmState.Back)
@@ -352,12 +377,11 @@ public class Shotgun : MonoBehaviour
         chamberShellState = ChamberShellState.Spent;
 
         Shoot();
-        e_shoot.Invoke();
+        e_Shoot.Invoke();
     }
 
     private void Shoot()
     {
-        print("BANG");
         shotgunAudio.Fire();
     }
 

@@ -2,11 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : DamageableEntity
 {
-    public int maxHealth = 10;
-    public int currentHealth = 10;
-
     public ShotgunProperties shotgun;
 
     public static Player Instance;

@@ -8,6 +8,7 @@ public class HackyArmIK : MonoBehaviour
     public Transform slidy;
     public Transform elbow;
     public Transform shell;
+    public Transform defaultHand;
     // Start is called before the first frame update
     private Animator shellAnimator;
 
@@ -29,6 +30,8 @@ public class HackyArmIK : MonoBehaviour
 
             if (!slidy)
             {
+                lr.SetPosition(0, Vector3.down * 10);
+                lr.SetPosition(1, Vector3.down * 10);
                 return;
             }
         }
