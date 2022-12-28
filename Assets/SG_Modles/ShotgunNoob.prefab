@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3529990986683108181}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ForearmBack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 3529990986731450219}
   - component: {fileID: 3529990986731450216}
   - component: {fileID: 3529990986731450217}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 3529990986807132297}
   - component: {fileID: 3529990986807132302}
   - component: {fileID: 3529990986807132303}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -232,7 +232,7 @@ GameObject:
   - component: {fileID: 3529990986871475422}
   - component: {fileID: 3529990986871475423}
   - component: {fileID: 3529990986871475420}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -324,7 +324,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3529990986948710137}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Holster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -363,7 +363,7 @@ GameObject:
   - component: {fileID: 3529990987003851981}
   - component: {fileID: 3529990987003851954}
   - component: {fileID: 3529990987003851955}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -458,7 +458,7 @@ GameObject:
   - component: {fileID: 3529990987141857820}
   - component: {fileID: 3529990987141857821}
   - component: {fileID: 3529990987141857794}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Stock (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -550,7 +550,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3529990987177038288}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -584,7 +584,7 @@ GameObject:
   - component: {fileID: 3529990987498401858}
   - component: {fileID: 3529990987498401859}
   - component: {fileID: 3529990987498401856}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Stock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -679,7 +679,7 @@ GameObject:
   - component: {fileID: 3529990987554726360}
   - component: {fileID: 3529990987554726361}
   - component: {fileID: 3529990987554726366}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Underbarrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -774,7 +774,7 @@ GameObject:
   - component: {fileID: 3529990987818813832}
   - component: {fileID: 3529990987818813833}
   - component: {fileID: 3529990987818813838}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -866,7 +866,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3529990987819691243}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ForearmFront
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -896,7 +896,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3529990987835851122}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ParticleRoot
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
@@ -929,7 +929,7 @@ GameObject:
   - component: {fileID: 3529990987958184358}
   - component: {fileID: 3529990987958184359}
   - component: {fileID: 3529990987958184356}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1021,7 +1021,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3529990987970384576}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Forearm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1055,7 +1055,7 @@ GameObject:
   - component: {fileID: 3529990988048588291}
   - component: {fileID: 3529990988048588288}
   - component: {fileID: 3529990988048588289}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Stock (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1148,7 +1148,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3529990988502463548}
   - component: {fileID: 3529990988502463551}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShotgunNoob
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1192,7 +1192,7 @@ MonoBehaviour:
   rotationDelta: 1
   forearmDelta: 7
   shotgun: {fileID: 0}
-  shellAnim: {fileID: 0}
+  shellAnimator: {fileID: 0}
 --- !u!1 &3529990988591350692
 GameObject:
   m_ObjectHideFlags: 0
@@ -1202,7 +1202,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3529990988591350695}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1243,7 +1243,7 @@ GameObject:
   - component: {fileID: 3529990988611378010}
   - component: {fileID: 3529990988611378011}
   - component: {fileID: 3529990988611378008}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1338,7 +1338,7 @@ GameObject:
   - component: {fileID: 3529990988691224153}
   - component: {fileID: 3529990988691224158}
   - component: {fileID: 3529990988691224159}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1430,7 +1430,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3529990988726081073}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Stock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
